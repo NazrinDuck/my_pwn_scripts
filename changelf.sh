@@ -8,6 +8,9 @@ pwd2_23_32bits=/mnt/e/Linux/Pwn/glibc-all-in-one/libs/2.23-0ubuntu11.3_i386
 pwd2_27_64bits=/mnt/e/Linux/Pwn/glibc-all-in-one/libs/2.27-3ubuntu1_amd64
 pwd2_27_32bits=/mnt/e/Linux/Pwn/glibc-all-in-one/libs/2.27-3ubuntu1_i386
 
+pwd2_31_64bits=/mnt/e/Linux/Pwn/glibc-all-in-one/libs/2.31-0ubuntu9_amd64
+pwd2_31_32bits=/mnt/e/Linux/Pwn/glibc-all-in-one/libs/2.31-0ubuntu9_i386
+
 if test -e ../${input};then
   if test $glibc = "2.23";then
     if test $bits = "64";then
@@ -28,8 +31,21 @@ if test -e ../${input};then
       patchelf --replace-needed libc.so.6 ${pwd2_27_64bits}/libc-2.27.so ../${input}
       echo "${input} is attached to ${bits}bits ${glibc}version glibc."
     elif test $bits = "32";then
-      patchelf --set-interpreter ${pwd2_27_32bits}/ld-2.23.so ../${input}
-      patchelf --replace-needed libc.so.6 ${pwd2_27_32bits}/libc-2.23.so ../${input}
+      patchelf --set-interpreter ${pwd2_27_32bits}/ld-2.27.so ../${input}
+      patchelf --replace-needed libc.so.6 ${pwd2_27_32bits}/libc-2.27.so ../${input}
+      echo "${input} is attached to ${bits}bits ${glibc}version glibc."
+    else
+      echo "Please give bits message" >&2
+      exit 1
+    fi
+  elif test $glibc = "2.31";then
+    if test $bits = "64";then
+      patchelf --set-interpreter ${pwd2_31_64bits}/ld-2.31.so ../${input}
+      patchelf --replace-needed libc.so.6 ${pwd2_31_64bits}/libc-2.31.so ../${input}
+      echo "${input} is attached to ${bits}bits ${glibc}version glibc."
+    elif test $bits = "32";then
+      patchelf --set-interpreter ${pwd2_31_32bits}/ld-2.31.so ../${input}
+      patchelf --replace-needed libc.so.6 ${pwd2_31_32bits}/libc-2.31.so ../${input}
       echo "${input} is attached to ${bits}bits ${glibc}version glibc."
     else
       echo "Please give bits message" >&2
