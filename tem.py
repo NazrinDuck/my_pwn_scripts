@@ -5,6 +5,7 @@ from pwnlib.fmtstr import make_atoms_simple
 from ctypes import *
 
 context(arch="amd64", os="linux", log_level="debug")
+context.terminal = ["tmux", "split", "-h"]
 # context(arch="amd64",os="linux",log_level="debug")
 binary = "../"
 libc = "../Libcs/libc.so.6_3"
